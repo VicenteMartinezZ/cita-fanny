@@ -1,47 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A simple webpage for Fanny">
     <title>Fanny</title>
     <style>
-        /* Estilos simples para una visualización móvil */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .view {
+            display: none;
+            padding: 20px;
             text-align: center;
         }
-        header {
-            background-color: #6200ea;
-            color: #fff;
-            padding: 15px;
+
+        .view.active {
+            display: block;
         }
-        main {
-            padding: 20px;
-        }
-        button {
-            background-color: #6200ea;
-            color: #fff;
+
+        .button {
+            background-color: #ff4081;
+            color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
-            background-color: #3700b3;
+
+        .button:hover {
+            background-color: #ff80ab;
+        }
+
+        .button.no {
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Fanny's Page</h1>
-    </header>
-    <main>
-        <p>This is a simple webpage designed for mobile devices.</p>
-        <button onclick="alert('Hello, Fanny!')">Click Me</button>
-    </main>
+    <div class="container">
+        <div class="view active" id="view1">
+            <p>¡Hola! ¿Te gustaría agendar una cita?</p>
+            <button class="button" onclick="nextView(2)">Continuar</button>
+        </div>
+        <div class="view" id="view2">
+            <p>¡Genial! Solo quedan unos detalles...</p>
+            <button class="button" onclick="nextView(3)">Siguiente</button>
+        </div>
+        <div class="view" id="view3">
+            <p>¿Aceptarías una cita conmigo?</p>
+            <button class="button" onclick="showMessage(true)">Sí</button>
+            <button class="button no" onclick="moveButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function nextView(viewNumber) {
+            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            document.getElementById('view' + viewNumber).classList.add('active');
+        }
+
+        function showMessage(accepted) {
+            if (accepted) {
+                alert('¡Gracias! Estoy emocionado/a por nuestra cita 😊');
+            }
+        }
+
+        function moveButton() {
+            const noButton = document.querySelector('.button.no');
+            noButton.style.top = (Math.random() * 100) + 'px';
+            noButton.style.left = (Math.random() * 100) + 'px';
+        }
+    </script>
 </body>
 </html>
