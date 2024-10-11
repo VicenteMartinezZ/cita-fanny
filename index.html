@@ -59,43 +59,34 @@
             to { opacity: 1; }
         }
 
-        .flowers {
-            display: none;
-            text-align: center;
-            animation: fadeIn 1s ease-in-out;
+        .message {
+            font-size: 1.5em;
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            border-radius: 10px;
+            background: white; /* Fondo blanco para el mensaje */
             position: relative;
+            z-index: 1; /* Para que el mensaje esté por encima de las flores */
         }
 
         .flower {
             position: absolute;
-            width: 30px; /* Ajustar tamaño */
+            font-size: 30px;
             opacity: 0.8;
-            animation: spin 10s linear infinite;
+            pointer-events: none; /* Para que las flores no interfieran con los botones */
+            animation: fall linear infinite;
         }
 
-        @keyframes spin {
+        @keyframes fall {
             0% {
-                transform: rotate(0deg);
+                transform: translateY(-100px); /* Cambiado a -100px para comenzar más arriba */
+                opacity: 1;
             }
             100% {
-                transform: rotate(360deg);
+                transform: translateY(100vh);
+                opacity: 0;
             }
-        }
-
-        .message {
-            position: relative;
-            z-index: 1; /* Para que el mensaje esté por encima de las flores */
-            margin: 20px;
-            font-size: 1.5em;
-            color: #333;
-        }
-
-        /* Estilo para el contenedor del patrón */
-        .pattern-container {
-            position: relative;
-            height: 150px; /* Altura ajustable según el diseño */
-            width: 150px; /* Ancho ajustable según el diseño */
-            margin: auto; /* Centrar el contenedor */
         }
     </style>
 </head>
@@ -129,26 +120,8 @@
             <button class="button" onclick="showMessage(true)">Sí</button>
             <button class="button no" onclick="moveButton()">No</button>
         </div>
-        <div class="flowers" id="flowers">
-            <div class="pattern-container">
-                <div class="flower" style="top: 0; left: 50%; transform: translate(-50%, -50%);">🌺</div>
-                <div class="flower" style="top: 30%; left: 50%; transform: translate(-50%, -50%);">🌸</div>
-                <div class="flower" style="top: 50%; left: 0%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 50%; left: 100%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 70%; left: 50%; transform: translate(-50%, -50%);">🌺</div>
-                <div class="flower" style="top: 90%; left: 50%; transform: translate(-50%, -50%);">🌸</div>
-                <div class="flower" style="top: 90%; left: 30%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 90%; left: 70%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 10%; left: 30%; transform: translate(-50%, -50%);">🌺</div>
-                <div class="flower" style="top: 10%; left: 70%; transform: translate(-50%, -50%);">🌸</div>
-                <div class="flower" style="top: 10%; left: 0%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 10%; left: 100%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 20%; left: 25%; transform: translate(-50%, -50%);">🌺</div>
-                <div class="flower" style="top: 20%; left: 75%; transform: translate(-50%, -50%);">🌸</div>
-                <div class="flower" style="top: 40%; left: 0%; transform: translate(-50%, -50%);">🌷</div>
-                <div class="flower" style="top: 40%; left: 100%; transform: translate(-50%, -50%);">🌷</div>
-            </div>
-            <p class="message">¡Será un placer salir contigo! 🌼</p>
+        <div class="view" id="view7" style="display: none;"> <!-- Nueva vista para mostrar el mensaje final -->
+            <p class="message">¡Será un placer salir contigo! 🌸</p>
         </div>
     </div>
 
@@ -174,16 +147,25 @@
         ];
 
         function nextView(viewNumber) {
-            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+                view.style.display = 'none'; // Oculta todas las vistas
+            });
+
+            const currentView = document.getElementById('view' + viewNumber);
+            currentView.classList.add('active');
+            currentView.style.display = 'block'; // Muestra la vista actual
+
             if (viewNumber === 7) {
-                document.getElementById('flowers').style.display = 'block'; // Mostrar flores
+                startFlowerRain(); // Comenzar lluvia de flores
             }
-            document.getElementById('view' + viewNumber).classList.add('active');
         }
 
         function showMessage(accepted) {
             if (accepted) {
                 nextView(7); // Ir a la vista de flores
+            } else {
+                moveButton();
             }
         }
 
@@ -209,6 +191,22 @@
             // Mostrar un mensaje aleatorio
             const randomIndex = Math.floor(Math.random() * randomMessages.length);
             alert(randomMessages[randomIndex]);
+        }
+
+        function startFlowerRain() {
+            setInterval(() => {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.innerText = '🌸'; // Usar una flor específica
+                flower.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+                flower.style.animationDuration = (Math.random() * 3 + 2) + 's'; // Duración de la caída aleatoria
+                document.body.appendChild(flower);
+
+                // Eliminar la flor después de que se haya caído
+                setTimeout(() => {
+                    flower.remove();
+                }, 5000);
+            }, 300); // Generar una flor cada 300 ms
         }
     </script>
 </body>
