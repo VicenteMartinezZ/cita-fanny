@@ -169,4 +169,14 @@
             const randomX = Math.random() * maxX + safeMargin / 2;
             const randomY = Math.random() * maxY + safeMargin / 2;
 
-            noButton.style.position = 'absolute'; // Cambiar a posición a
+            noButton.style.position = 'absolute'; // Cambiar a posición absoluta
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+
+            // Mostrar un mensaje aleatorio
+            const randomIndex = Math.floor(Math.random() * randomMessages.length);
+            alert(randomMessages[randomIndex]);
+        }
+    </script>
+</body>
+</html>
