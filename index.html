@@ -25,7 +25,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             animation: fadeIn 1s ease-in-out;
-            position: relative; /* Agregado para controlar el posicionamiento relativo */
+            position: relative;
         }
 
         .view {
@@ -47,7 +47,7 @@
             cursor: pointer;
             margin: 10px;
             transition: background-color 0.3s ease;
-            position: relative; /* Cambio de posición a relativa */
+            position: relative;
         }
 
         .button:hover {
@@ -58,6 +58,25 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        .flowers {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .flower {
+            position: absolute;
+            width: 50px;
+            opacity: 0.8;
+            animation: float 3s ease-in infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -67,7 +86,7 @@
             <button class="button" onclick="nextView(2)">Continuar</button>
         </div>
         <div class="view" id="view2">
-            <p>Dicen que si te quieres diferenciar del resto no hagas lo mismo que hacen demás, por esto la razón de hacerlo a mi manera, esta es una página web hecha única y exclusivamente para ti y estará disponible 24/7.</p>
+            <p>Dicen que si te quieres diferenciar del resto no hagas lo mismo que hacen demás, por esto la razón de hacerlo a mi manera 😎, esta es una página web hecha única y exclusivamente para ti y estará disponible 24/7.</p>
             <button class="button" onclick="nextView(3)">Siguiente</button>
         </div>
         <div class="view" id="view3">
@@ -81,46 +100,57 @@
         <div class="view" id="view5">
             <p>Será recogida en su domicilio y al final llevada al mismo, se le tratará con el máximo respeto que se merece y claramente reinará la caballerosidad. <br>
                 El lugar al que la lleve dependerá única y exclusivamente de sus preferencias, disponibilidad y de la hora de llegada que tenga(Le llevaré a su casa cuando lo indique), no tengo inconveniente de que sea entre semana/fin de semana cuando se encuentre en Acaponeta, San Miguelito o en cualquier otra parte del 🌎.<br>
-                El lugar a donde vayamos lo puede elegir o dejármelo a mí y solo preocuparse por estar preparada cuando pase por usted porque claramente <em><strong></strong>linda ya esta señorita</strong></em> 🌸.<br>
+                El lugar a donde vayamos lo puede elegir o dejármelo a mí y solo preocuparse por estar preparada cuando pase por usted porque claramente <em><strong>linda ya está señorita</strong></em> 🌸.<br>
                 Piense lo siguiente: la única intención es poder conocerla mejor y de igual manera que me conozca a mí y que es un ganar-ganar, ya que en el peor de los casos se puede ganar un amigo.</p>
             <button class="button" onclick="nextView(6)">Siguiente</button>
         </div>
         <div class="view" id="view6">
-            <p>¿Aceptarías una cita conmigo?</p><br><br><br>
+            <p>Entonces que me dices...<br><br>¿Aceptarías salir conmigo?</p><br><br>
             <button class="button" onclick="showMessage(true)">Sí</button>
             <button class="button no" onclick="moveButton()">No</button>
+        </div>
+        <div class="flowers" id="flowers">
+            <div class="flower" style="left: 10%; top: 10%;"><img src="https://example.com/flower1.png" alt="Flor 1"></div>
+            <div class="flower" style="left: 30%; top: 20%;"><img src="https://example.com/flower2.png" alt="Flor 2"></div>
+            <div class="flower" style="left: 50%; top: 30%;"><img src="https://example.com/flower3.png" alt="Flor 3"></div>
+            <div class="flower" style="left: 70%; top: 40%;"><img src="https://example.com/flower4.png" alt="Flor 4"></div>
+            <div class="flower" style="left: 90%; top: 50%;"><img src="https://example.com/flower5.png" alt="Flor 5"></div>
+            <p>Sera un placer salir contigo! 🌼</p>
         </div>
     </div>
 
     <script>
         const randomMessages = [
             "Creo que te equivocaste, te daré otra oportunidad😊",
- "¡Puedo estar así todo el día! 😄",
-"¿Qué tal si te piensas mejor la respuesta? 😉",
- "¡Vamos, no seas tímida! 😅",
- "¡Es solo un 'no' por ahora! 😜",
-"¡Un 'no' hoy podría ser un 'sí' mañana! 🌟",
-"¡No te preocupes, aquí no muerdo! 😅",
-"¿Seguro que no quieres pensarlo un poquito más? 🤔",
-"¿Qué tal si probamos un 'tal vez'? 🤷‍♂️",
-"¡Aún hay tiempo para cambiar de opinión! ⏳",
-"¡El camino hacia el 'sí' a veces comienza con un 'no'! 😉",
-"¡La vida es corta, dale otra oportunidad! 😊",
-"¿Qué tal si prometo no hacer más juegos de palabras? 😜",
-"No le tengas miedo al éxito 🏆",
-"Tienes el valor o te vale 😜",
-"Vamos, se me están acabando los malos chistes 😥",
-"Tampoco voy a estar de rogón he, pero te daré una última oportunidad 🤨"
+            "¡Puedo estar así todo el día! 😄",
+            "¿Qué tal si te piensas mejor la respuesta? 😉",
+            "¡Vamos, no seas tímida! 😅",
+            "¡Es solo un 'no' por ahora! 😜",
+            "¡Un 'no' hoy podría ser un 'sí' mañana! 🌟",
+            "¡No te preocupes, aquí no muerdo! 😅",
+            "¿Seguro que no quieres pensarlo un poquito más? 🤔",
+            "¿Qué tal si probamos un 'tal vez'? 🤷‍♂️",
+            "¡Aún hay tiempo para cambiar de opinión! ⏳",
+            "¡El camino hacia el 'sí' a veces comienza con un 'no'! 😉",
+            "¡La vida es corta, dale otra oportunidad! 😊",
+            "¿Qué tal si prometo no hacer más juegos de palabras? 😜",
+            "No le tengas miedo al éxito 🏆",
+            "Tienes el valor o te vale 😜",
+            "Vamos, se me están acabando los malos chistes 😥",
+            "Tampoco voy a estar de rogón he, pero te daré una última oportunidad 🤨"
         ];
 
         function nextView(viewNumber) {
             document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            if (viewNumber === 7) {
+                document.getElementById('flowers').style.display = 'block'; // Mostrar flores
+            }
             document.getElementById('view' + viewNumber).classList.add('active');
         }
 
         function showMessage(accepted) {
             if (accepted) {
-                alert('¡Gracias! Estoy emocionado/a por nuestra cita 😊');
+                nextView(7); // Ir a la página de flores
             }
         }
 
@@ -139,14 +169,4 @@
             const randomX = Math.random() * maxX + safeMargin / 2;
             const randomY = Math.random() * maxY + safeMargin / 2;
 
-            noButton.style.position = 'absolute'; // Cambiar a posición absoluta
-            noButton.style.left = randomX + 'px';
-            noButton.style.top = randomY + 'px';
-
-            // Mostrar un mensaje aleatorio
-            const randomIndex = Math.floor(Math.random() * randomMessages.length);
-            alert(randomMessages[randomIndex]);
-        }
-    </script>
-</body>
-</html>
+            noButton.style.position = 'absolute'; // Cambiar a posición a
