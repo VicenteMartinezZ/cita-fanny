@@ -117,10 +117,15 @@
             const container = document.querySelector('.container');
             const containerRect = container.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
-            
+
+            // Determinar el área segura donde el botón puede moverse
+            const safeMargin = 60; // Margen para que no tape otros elementos
+            const maxX = containerRect.width - buttonRect.width - safeMargin;
+            const maxY = containerRect.height - buttonRect.height - safeMargin - 50; // Deja espacio para el botón de "Sí"
+
             // Generar posiciones aleatorias dentro del contenedor
-            const randomX = Math.random() * (containerRect.width - buttonRect.width);
-            const randomY = Math.random() * (containerRect.height - buttonRect.height - 50); // -50 para dejar espacio para el botón
+            const randomX = Math.random() * maxX + safeMargin / 2;
+            const randomY = Math.random() * maxY + safeMargin / 2;
 
             noButton.style.position = 'absolute'; // Cambiar a posición absoluta
             noButton.style.left = randomX + 'px';
