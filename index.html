@@ -63,19 +63,39 @@
             display: none;
             text-align: center;
             animation: fadeIn 1s ease-in-out;
+            position: relative;
         }
 
         .flower {
             position: absolute;
-            width: 50px;
+            width: 30px; /* Ajustar tamaño */
             opacity: 0.8;
-            animation: float 3s ease-in infinite;
+            animation: spin 10s linear infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .message {
+            position: relative;
+            z-index: 1; /* Para que el mensaje esté por encima de las flores */
+            margin: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        /* Estilo para el contenedor del patrón */
+        .pattern-container {
+            position: relative;
+            height: 150px; /* Altura ajustable según el diseño */
+            width: 150px; /* Ancho ajustable según el diseño */
+            margin: auto; /* Centrar el contenedor */
         }
     </style>
 </head>
@@ -110,12 +130,25 @@
             <button class="button no" onclick="moveButton()">No</button>
         </div>
         <div class="flowers" id="flowers">
-            <div class="flower" style="left: 10%; top: 10%;"><img src="https://example.com/flower1.png" alt="Flor 1"></div>
-            <div class="flower" style="left: 30%; top: 20%;"><img src="https://example.com/flower2.png" alt="Flor 2"></div>
-            <div class="flower" style="left: 50%; top: 30%;"><img src="https://example.com/flower3.png" alt="Flor 3"></div>
-            <div class="flower" style="left: 70%; top: 40%;"><img src="https://example.com/flower4.png" alt="Flor 4"></div>
-            <div class="flower" style="left: 90%; top: 50%;"><img src="https://example.com/flower5.png" alt="Flor 5"></div>
-            <p>Sera un placer salir contigo! 🌼</p>
+            <div class="pattern-container">
+                <div class="flower" style="top: 0; left: 50%; transform: translate(-50%, -50%);">🌺</div>
+                <div class="flower" style="top: 30%; left: 50%; transform: translate(-50%, -50%);">🌸</div>
+                <div class="flower" style="top: 50%; left: 0%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 50%; left: 100%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 70%; left: 50%; transform: translate(-50%, -50%);">🌺</div>
+                <div class="flower" style="top: 90%; left: 50%; transform: translate(-50%, -50%);">🌸</div>
+                <div class="flower" style="top: 90%; left: 30%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 90%; left: 70%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 10%; left: 30%; transform: translate(-50%, -50%);">🌺</div>
+                <div class="flower" style="top: 10%; left: 70%; transform: translate(-50%, -50%);">🌸</div>
+                <div class="flower" style="top: 10%; left: 0%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 10%; left: 100%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 20%; left: 25%; transform: translate(-50%, -50%);">🌺</div>
+                <div class="flower" style="top: 20%; left: 75%; transform: translate(-50%, -50%);">🌸</div>
+                <div class="flower" style="top: 40%; left: 0%; transform: translate(-50%, -50%);">🌷</div>
+                <div class="flower" style="top: 40%; left: 100%; transform: translate(-50%, -50%);">🌷</div>
+            </div>
+            <p class="message">¡Será un placer salir contigo! 🌼</p>
         </div>
     </div>
 
@@ -137,7 +170,7 @@
             "No le tengas miedo al éxito 🏆",
             "Tienes el valor o te vale 😜",
             "Vamos, se me están acabando los malos chistes 😥",
-            "Tampoco voy a estar de rogón he, pero te daré una última oportunidad 🤨"
+            "Tampoco voy a estar de rogón he, pero te daré una última oportunidad 🤨"
         ];
 
         function nextView(viewNumber) {
@@ -150,7 +183,7 @@
 
         function showMessage(accepted) {
             if (accepted) {
-                nextView(7); // Ir a la página de flores
+                nextView(7); // Ir a la vista de flores
             }
         }
 
