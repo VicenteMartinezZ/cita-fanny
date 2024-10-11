@@ -25,6 +25,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             animation: fadeIn 1s ease-in-out;
+            position: relative; /* Agregado para controlar el posicionamiento relativo */
         }
 
         .view {
@@ -46,14 +47,11 @@
             cursor: pointer;
             margin: 10px;
             transition: background-color 0.3s ease;
+            position: relative; /* Cambio de posición a relativa */
         }
 
         .button:hover {
             background-color: #ff80ab;
-        }
-
-        .button.no {
-            position: relative;
         }
 
         @keyframes fadeIn {
@@ -82,9 +80,9 @@
         </div>
         <div class="view" id="view5">
             <p>Será recogida en su domicilio y al final llevada al mismo, se le tratará con el máximo respeto que se merece y claramente reinará la caballerosidad. <br>
-                El lugar al que la lleve dependerá única y exclusivamente de sus preferencias, disponibilidad y de la hora de llegada que tenga(Le llevaré a su casa cuando lo indique), no tengo inconveniente de que sea entre semana cuando se encuentre en Acaponeta, San Miguelito o en cualquier otra parte del 🌎.<br>
+                El lugar al que la lleve dependerá única y exclusivamente de sus preferencias, disponibilidad y de la hora de llegada que tenga(Le llevaré a su casa cuando lo indique), no tengo inconveniente de que sea entre semana/fin de semana cuando se encuentre en Acaponeta, San Miguelito o en cualquier otra parte del 🌎.<br>
                 El lugar a donde vayamos lo puede elegir o dejármelo a mí y solo preocuparse por estar preparada cuando pase por usted porque claramente <em><strong></strong>linda ya esta señorita</strong></em> 🌸.<br>
-                Piense lo siguiente la única intención es poder conocerla mejor y de igual manera que me conozca a mí y que es un ganar-ganar, ya que en el peor de los casos se puede ganar un amigo.</p>
+                Piense lo siguiente: la única intención es poder conocerla mejor y de igual manera que me conozca a mí y que es un ganar-ganar, ya que en el peor de los casos se puede ganar un amigo.</p>
             <button class="button" onclick="nextView(6)">Siguiente</button>
         </div>
         <div class="view" id="view6">
@@ -95,6 +93,14 @@
     </div>
 
     <script>
+        const randomMessages = [
+            "¡No te vayas tan rápido! 😊",
+            "¡Apenas estoy comenzando! 😄",
+            "¿Qué tal si te piensas mejor la respuesta? 😉",
+            "¡Vamos, no seas tímida! 😅",
+            "¡Es solo un 'no' por ahora! 😜"
+        ];
+
         function nextView(viewNumber) {
             document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
             document.getElementById('view' + viewNumber).classList.add('active');
@@ -108,8 +114,21 @@
 
         function moveButton() {
             const noButton = document.querySelector('.button.no');
-            noButton.style.top = (Math.random() * 100) + 'px';
-            noButton.style.left = (Math.random() * 100) + 'px';
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            
+            // Generar posiciones aleatorias dentro del contenedor
+            const randomX = Math.random() * (containerRect.width - buttonRect.width);
+            const randomY = Math.random() * (containerRect.height - buttonRect.height - 50); // -50 para dejar espacio para el botón
+
+            noButton.style.position = 'absolute'; // Cambiar a posición absoluta
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+
+            // Mostrar un mensaje aleatorio
+            const randomIndex = Math.floor(Math.random() * randomMessages.length);
+            alert(randomMessages[randomIndex]);
         }
     </script>
 </body>
